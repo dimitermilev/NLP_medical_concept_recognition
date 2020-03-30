@@ -22,7 +22,7 @@ Data collected from the [n2c2 NLP Research Data Set](https://portal.dbmi.hms.har
 - Naive Bayes and linear classifier
 
 **Deep Learning:**
-- Bidirectional LSTM and Sequence-to-sequence modeling
+- Bidirectional LSTM sequence-to-sequence modeling
 
 ## Data manipulation and analysis
 
