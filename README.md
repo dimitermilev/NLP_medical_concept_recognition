@@ -4,7 +4,7 @@ I use NLP methods and shallow (Naive Bayes, stochastic gradient descent classifi
 
 ## Data
 
-Data collected from the n2c2 NLP Research Data Set made available by the Harvard Medical School. The dataset comes from the NLP Relations challenge. It consists of:
+Data collected from the [n2c2 NLP Research Data Set](https://portal.dbmi.hms.harvard.edu/projects/n2c2-nlp/#) made available by the Harvard Medical School. The dataset comes from the NLP Relations challenge. It consists of:
 
 * Data from 3 hospitals
 * 871 hospital notes (progress notes and discharge summaries) in free text
