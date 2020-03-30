@@ -1,6 +1,6 @@
 # Medical Concept Recognition in Free Text
 
-I use NLP methods and shallow (Naive Bayes, stochastic gradient descent classifier) and deep learning (Bidirectional LSTM) to recognize and classify medical concepts in free text hospital notes.
+I use NLP methods along with shallow (Naive Bayes, stochastic gradient descent classifier) and deep learning (Bidirectional LSTM) to recognize and classify medical concepts in free text hospital notes.
 
 ## Data
 
