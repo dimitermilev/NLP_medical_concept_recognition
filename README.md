@@ -18,10 +18,13 @@ Data collected from the [n2c2 NLP Research Data Set](https://portal.dbmi.hms.har
 **Feature Engineering**
 - Context window features: dates, digits, titles, parts of speech, upper/lower
 
-**Shallow ML:**
+**Word Embeddings**
+- Use of the pre-trained 300 dimension [GloVe](https://nlp.stanford.edu/projects/glove/) word vectors 
+
+**Shallow ML**
 - Naive Bayes and linear classifier
 
-**Deep Learning:**
+**Deep Learning**
 - Bidirectional LSTM sequence-to-sequence modeling
 
 ## Data manipulation and analysis
