@@ -14,10 +14,13 @@ Data collected from the n2c2 NLP Research Data Set made available by the Harvard
 
 **Natural Language Processing Pipeline**
 - Sentence parsing, Tokenization, Part of Speech tagging, Stemming
+
 **Feature Engineering**
 - Context window features: dates, digits, titles, parts of speech, upper/lower
+
 **Shallow ML:**
 - Naive Bayes and linear classifier
+
 **Deep Learning:**
 - Bidirectional LSTM and Sequence-to-sequence modeling
 
