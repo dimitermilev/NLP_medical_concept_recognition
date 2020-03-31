@@ -6,10 +6,8 @@ from sklearn.feature_extraction import DictVectorizer
 def tokens_to_dict(all_tokens_tags):
     '''Transform text/tag tokens into word-level trigram window:
     Include features (like prefix/suffix, title, digit, etc) for prev/current/next words'''
-    
     '''Initialize list to hold trigram context dictionaries for each word'''
-    token_context_dicts=[]
-    
+    token_context_dicts=[]   
     '''Add previous/current/next word features to each dictionary'''
     for j, doc in enumerate(all_tokens_tags):
         features_doc=[]
@@ -51,7 +49,6 @@ def tokens_to_dict(all_tokens_tags):
             else:
                 '''Features for beginning of a line of text'''
                 features.update({'curr_sentencepos' : 'beginning'})
-
             '''Features for all words not at the end of a line of text'''
             if i < len(doc)-1:
                 next_word = doc[i+1][0]
@@ -72,17 +69,14 @@ def tokens_to_dict(all_tokens_tags):
                 features.update({'curr_sentencepos' : 'end'})
             features_doc.append(features)
         token_context_dicts.extend(features_doc)
-    return token_context_dicts
-    
+    return token_context_dicts    
 
 def dict_vectorize_trigrams(token_context_dicts, list_of_features):
     '''Function takes list of dictionaries and list of desired dictionary keys,
        and outputs a dictionary vectorized one hot encodings of features'''
-    dict_vec = DictVectorizer(sparse=False)
-    
+    dict_vec = DictVectorizer(sparse=False)   
     '''Temporary transformation into pandas df to easily select features and fill in NA values as False'''
     df_temp = pd.DataFrame(token_context_dicts)[list_of_features].fillna(False)
     '''Also return the target label'''
     y = [ word['curr_targetlabel'] for word in token_context_dicts] 
-
     return dict_vec.fit_transform(df_temp.to_dict('records')), y
