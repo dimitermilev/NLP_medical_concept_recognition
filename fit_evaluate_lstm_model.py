@@ -12,6 +12,39 @@ def seqs_train_test_split(X,y,test_size, random_state):
     y_test = np.array(y_test)
     return X_train, X_test, y_train, y_test
 
+
+from keras.models import Model, Input
+from keras.layers import LSTM, Embedding, Dense, TimeDistributed, Dropout, Bidirectional
+
+
+def fit_lstm_model(X_train, y_train, n_words, n_tags, seq_len, class_weights, epochs):
+    '''Set up LSTM model with one input - equal length sequences of encoded text'''
+    input_seq = Input(shape=(seq_len,))
+
+    '''Pass the GloVe pretrained model weights into the embedding layer'''
+    embedding = Embedding(input_dim=n_words, output_dim=300, 
+                  weights=[embedding_matrix], 
+                  trainable=True)(input_seq)
+    embedding = Dropout(0.1)(embedding)
+    
+    '''Add Bidirectional LSTM layer, dense hidden layer, and final output layer'''
+    model = Bidirectional(LSTM(units=64, return_sequences=True, recurrent_dropout=0.1))(embedding)
+    model = TimeDistributed(Dense(64, activation='relu'))(model)
+    output = Dense(n_tags, activation="softmax")(model)
+    
+    '''Compile and fit deep neural network'''
+    model = Model(inputs=input_seq, outputs=output)
+    model.compile(optimizer="adam", loss="categorical_crossentropy", metrics=["accuracy"])
+    history = model.fit(X_train, y_train
+                          , epochs=epochs, batch_size=32, validation_split=0.1, verbose=1, class_weight = [class_weights])
+    
+    '''Create simple performance report for the model'''
+    val_loss, val_acc = model.evaluate(X_test, y_test)
+    print(f'Model validation loss was {val_loss}')
+    print(f'Model validation accuracy was {val_acc}')
+    return model, history
+
+
 def score_lstm_model(model, X_test, y_test, idx2word, idx2tag):
     '''Function outputs model predictions and comparisons to true values;
     Model also outputs classification report of model performance by simple class'''    
