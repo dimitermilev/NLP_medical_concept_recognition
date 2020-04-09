@@ -13,10 +13,6 @@ def seqs_train_test_split(X,y,test_size, random_state):
     return X_train, X_test, y_train, y_test
 
 
-from keras.models import Model, Input
-from keras.layers import LSTM, Embedding, Dense, TimeDistributed, Dropout, Bidirectional
-
-
 def fit_lstm_model(X_train, y_train, n_words, n_tags, seq_len, class_weights, epochs):
     '''Set up LSTM model with one input - equal length sequences of encoded text'''
     input_seq = Input(shape=(seq_len,))
