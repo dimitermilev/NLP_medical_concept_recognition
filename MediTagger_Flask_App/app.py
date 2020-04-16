@@ -24,11 +24,11 @@ from sklearn.metrics import roc_auc_score, roc_curve
 from sklearn.model_selection import cross_val_score
 from sklearn.metrics import classification_report
 
+import tensorflow
 from keras.preprocessing.sequence import pad_sequences
 from keras.models import Model, Input, load_model
 from keras.layers import LSTM, Embedding, Dense, TimeDistributed, Dropout, Bidirectional, concatenate
 import keras.backend.tensorflow_backend as tb
-import tensorflow
 tb._SYMBOLIC_SCOPE.value = True
 
 from flask import Flask,url_for,render_template,request
@@ -48,7 +48,6 @@ with open("bio_embeddings.pickle", "rb") as pfile:
 '''Get pretrained BiLSTM modelmodel'''
 global model
 model = tensorflow.keras.models.load_model('hospitalnotes_model.h5')
-    
     
 app = Flask(__name__)
 Markdown(app)
@@ -102,8 +101,7 @@ def extract():
     document_idx_eval = pad_sequences(maxlen=60, sequences=document_idx, padding="post",value=11555 - 2)
     document_idx_df=pd.DataFrame(document_idx).reset_index()
     document_idx_eval = np.array(document_idx_eval)
-                
-        
+                 
     '''Use BiLSTM model to recognize the medical concepts in the uniform sequences'''
     res_func_sentence=[]
     for i, doc in enumerate((document_idx_eval)):
@@ -119,7 +117,7 @@ def extract():
             line_res.append(nn)
         res_func_sentence.append(line_res)
         
-    #'''Prepare predictions for display purposes - first, create the tokenized list of original words'''
+    '''Prepare predictions for display purposes - first, create the tokenized list of original words'''
     f_display_text = []
     for i in list(document_idx_df['index']):
         words_only=[]
@@ -188,7 +186,6 @@ def extract():
     result = HTML_WRAPPER.format(html_text)
 
     return render_template('result.html',rawtext=raw_text,result=result)        
-
 
 if __name__ == '__main__':
     app.run(debug=True, threaded=False)
